@@ -23,6 +23,18 @@ exports.getUser = (req, res, next) => {
   });
 }
 
+exports.getTag= (req, res, next) => {
+  if (!req.params.id) {
+    return next(new AppError("No user id found", 404));
+  }
+  conn.query("SELECT tags FROM user WHERE id = ?", [req.params.id], function (err, data, fields) {
+    if(err) return next(new AppError(err, 500))
+    res.status(200).json({
+      data: data,
+    });
+  });
+}
+
 exports.createUser= (req, res, next) => {
   conn.query(
     "INSERT INTO user (name, password, email, tags) VALUES (?, ?, ?, ?)",
