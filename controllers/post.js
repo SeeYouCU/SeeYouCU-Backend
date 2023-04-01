@@ -1,4 +1,4 @@
-import { db } from "../conect.js";
+import { db } from "../services/db.js";
 import jwt from "jsonwebtoken";
 import moment from "moment";
 

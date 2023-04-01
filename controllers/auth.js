@@ -1,4 +1,4 @@
-import { db } from "../conect.js";
+import { db } from "../services/db.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
