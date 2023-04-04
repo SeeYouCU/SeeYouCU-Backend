@@ -1,7 +1,7 @@
 import express from "express";
 const app = express();
-import userRoutes from "./routes/users.js";
-import postRoutes from "./routes/posts.js";
+import userRoutes from "./routes/user.js";
+import postRoutes from "./routes/post.js";
 import authRoutes from "./routes/auth.js";
 import exchangeRoute from "./routes/exchange.js";
 import joinEvent from "./routes/join.js";
@@ -19,6 +19,6 @@ app.use("/api/posts", postRoutes);
 app.use("/api/exchange", exchangeRoute);
 app.use("/api/join", joinEvent);
 
-app.listen(4000, () => {
+app.listen(8080, () => {
   console.log("API working!");
 });
