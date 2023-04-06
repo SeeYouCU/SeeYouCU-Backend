@@ -1,16 +1,17 @@
-const express = require("express");
-const app = express()
+const express = require('express');
+const app = express();
 const cors = require("cors");
 const AppError = require("./utils/appError");
 const errorHandler = require("./utils/errorHandler");
 
 app.use(express.json())
 
-const userRoute = require("./routes/user");
-app.use("/user", userRoute);
+app.get('/', (req, res) => {
+  res.send("Hello world");
+});
 
 app.all("*", (req, res, next) => {
- next(new AppError(`The URL ${req.originalUrl} does not exists`, 404));
+  next(new AppError(`The URL ${req.originalUrl} does not exists`, 404));
 });
 app.use(errorHandler);
 
