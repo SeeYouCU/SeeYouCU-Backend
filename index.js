@@ -18,6 +18,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/exchange", exchangeRoute);
 app.use("/api/join", joinEvent);
+app.use("/api/tag", tagEvent);
 
 app.listen(8080, () => {
   console.log("API working!");
