@@ -5,6 +5,7 @@ import postRoutes from "./routes/post.js";
 import authRoutes from "./routes/auth.js";
 import exchangeRoute from "./routes/exchange.js";
 import joinEvent from "./routes/join.js";
+import friendRoute from "./routes/friend.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -18,6 +19,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/exchange", exchangeRoute);
 app.use("/api/join", joinEvent);
+app.use("/api/friend", friendRoute);
 
 app.listen(8080, () => {
   console.log("API working!");
