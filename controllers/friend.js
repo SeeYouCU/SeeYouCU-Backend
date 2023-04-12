@@ -7,12 +7,6 @@ export const makeFriendWith = (req, res) => {
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
 
-    // const k = "SELECT * FROM isFriendWith WHERE followerUserId = ?";
-    // db.query(k, [userInfo.id], (err, data) => {
-    //   if (err) return res.status(500).json(err);
-    //   if (data.length) return res.status(409).json("User already be friend");
-    // });
-
     const q =
       "INSERT IGNORE INTO isFriendWith (`followerUserId`, `followedUserId`, `date`) VALUE (?)";
     const values = [
