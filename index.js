@@ -7,17 +7,20 @@ import exchangeRoute from "./routes/exchange.js";
 import joinEvent from "./routes/join.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+// import oauthRoutes from "./routes/oauth.js";
 
 //middlewares
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
+// app.use("/api/googleauth");
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/exchange", exchangeRoute);
 app.use("/api/join", joinEvent);
+// app.use("/api/oauth", oauthRoutes);
 
 app.listen(8080, () => {
   console.log("API working!");
