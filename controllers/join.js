@@ -21,6 +21,18 @@ export const joinEvent = (req, res) => {
   });
 };
 
+export const approveJoin = (req, res) => {
+  const token = req.cookies.accessToken;
+  jwt.verify(token, "secretkey", (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid!");
+    const q = "UPDATE joins SET state = '1' WHERE EID = ? AND accountID = ?";
+    db.query(q, [req.body.EID, userInfo.id], (err, data) => {
+      if (err) return res.status(500).json(err);
+      return res.status(200).json("item has been approve.");
+    });
+  });
+};
+
 export const getJoinedEvent = (req, res) => {
   const token = req.cookies.accessToken;
   jwt.verify(token, "secretkey", (err, userInfo) => {
@@ -28,6 +40,18 @@ export const getJoinedEvent = (req, res) => {
     const q = `SELECT i.*, u.id AS userId, name, profilePic FROM joins AS i LEFT JOIN user AS u ON (i.userId = u.id) 
       WHERE i.accountID = ? OR i.userid = ? ORDER BY i.dateJoin DESC`;
     db.query(q, [userInfo.id, userInfo.id], (err, data) => {
+      if (err) return res.status(500).json(err);
+      return res.status(200).json(data);
+    });
+  });
+};
+
+export const getJoinState = (req, res) => {
+  const token = req.cookies.accessToken;
+  jwt.verify(token, "secretkey", (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid!");
+    const q = `SELECT i.state FROM joins AS i WHERE i.EID = ? AND i.accountID = ?`;
+    db.query(q, [req.body.EID, userInfo.id], (err, data) => {
       if (err) return res.status(500).json(err);
       return res.status(200).json(data);
     });
