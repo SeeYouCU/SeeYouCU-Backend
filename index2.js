@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.get(
-  "/oauth/google",
+  "/google",
   passport.authenticate("google", { scope: ["email", "profile"] })
 );
 
@@ -35,7 +35,7 @@ app.get(
   })
 );
 
-app.get("/auth/failure", (req, res) => {
+app.get("/oauth/failure", (req, res) => {
   res.send("something went wrong");
 });
 
