@@ -25,5 +25,5 @@
   },
   "keywords": [],
   "description": "",
-  "type": "commonjs"
+  "type": "module"
 }

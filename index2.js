@@ -1,7 +1,11 @@
-const express = require("express");
-const session = require("express-session");
-const passport = require("passport");
-require("./oauth");
+import express from "express";
+import session from "express-session";
+import passport from "passport";
+// import oauth from "./oauth.js";
+// const express = require("express");
+// const session = require("express-session");
+// const passport = require("passport");
+import oauth from "./oauth.js";
 
 function isLoggedIn(req, res, next) {
   req.user ? next() : res.sendStatus(401);
@@ -11,6 +15,8 @@ const app = express();
 app.use(session({ secret: "cat" }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+oauth(passport);
 
 app.get("/", (req, res) => {
   res.send('<a href="/oauth/google"> Authenticate with Google');
@@ -38,9 +44,6 @@ app.get("/protected", isLoggedIn, (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  //   req.logout();
-  //   req.session.destroy();
-  //   res.send("Goodbye");
   req.logout(function (err) {
     if (err) {
       return next(err);
