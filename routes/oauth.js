@@ -62,7 +62,7 @@ router.get("/failure", (req, res) => {
 });
 
 router.get("/dummy", (req, res) => {
-  // res.send("dummy inserted");
+  res.send("dummy inserted");
   const q = "INSERT INTO newUser (`email`, `name`) VALUE (?)";
   db.query(q, ["flow@gmail.com", "Flow"], (err, data) => {
     if (err) return res.status(500).json(err);
