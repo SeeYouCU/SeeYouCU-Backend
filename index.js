@@ -41,7 +41,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/protected", isLoggedIn, (req, res) => {
-  res.send(`Hello ${req.user.displayName}`);
+  res.send(`Hello ${req.user.email}`);
 });
 
 app.listen(8080, () => {

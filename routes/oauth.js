@@ -21,17 +21,17 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/protected",
+    // successRedirect: "/protected",
     failureRedirect: "/oauth/failure",
   }),
   (req, res) => {
-    // Get user info from passport
+    // Get user info from google
     const userInfo = req.user._json;
     const name = userInfo.name;
     const email = userInfo.email;
 
     // Check if user already exists in the database
-    const q = "SELECT * FROM newUser WHERE email = ?";
+    const q = "SELECT * FROM account WHERE email = ?";
     console.log("checking database");
     db.query(q, [email], (err, data) => {
       if (err) {
@@ -39,18 +39,19 @@ router.get(
         res.status(500).json(err);
       } else if (data.length === 0) {
         // User doesn't exist, insert into the database
-        console.log("New user:", name, email);
-        const q = "INSERT INTO newUser (name, email) VALUES (?, ?)";
-        db.query(q, [name, email], (err, data) => {
+        console.log("New Account:", name, email);
+        const q = "INSERT INTO account (email) VALUES (?)";
+        db.query(q, [email], (err, data) => {
           if (err) {
             console.log(err);
             res.status(500).json(err);
           } else {
-            res.redirect("/protected");
+            //Account not in db go to register
+            res.redirect("/api/auth/registerGoogle");
           }
         });
       } else {
-        // User exists, redirect to protected page
+        // Account exists, redirect to dashboard page
         res.redirect("/protected");
       }
     });
