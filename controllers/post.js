@@ -6,7 +6,7 @@ export const getEvents = (req, res) => {
   const token = req.cookies.accessToken;
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
-    const q = `SELECT e.*, u.id AS userId, name, profilePic FROM events AS e JOIN user AS u ON (u.id = e.userid ) 
+    const q = `SELECT e.*, u.id AS userId, u.name AS userName, profilePic FROM events AS e JOIN user AS u ON (u.id = e.userid ) 
     ORDER BY e.createdAt DESC`;
     db.query(q, [userInfo.id, userInfo.id], (err, data) => {
       if (err) return res.status(500).json(err);
