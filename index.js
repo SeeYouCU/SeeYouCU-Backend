@@ -5,6 +5,7 @@ import postRoutes from "./routes/post.js";
 import authRoutes from "./routes/auth.js";
 import exchangeRoute from "./routes/exchange.js";
 import joinEvent from "./routes/join.js";
+import friendRoute from "./routes/friend.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import passport from "passport";
@@ -31,6 +32,7 @@ app.use("/api/posts", postRoutes);
 app.use("/api/exchange", exchangeRoute);
 app.use("/api/join", joinEvent);
 app.use("/api/oauth", oauthRoutes);
+app.use("/api/friend", friendRoute);
 
 function isLoggedIn(req, res, next) {
   req.user ? next() : res.sendStatus(401);
