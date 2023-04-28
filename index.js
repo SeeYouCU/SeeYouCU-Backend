@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.js";
 import exchangeRoute from "./routes/exchange.js";
 import joinEvent from "./routes/join.js";
 import friendRoute from "./routes/friend.js";
+import friendRoute from "./routes/friend.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import passport from "passport";
