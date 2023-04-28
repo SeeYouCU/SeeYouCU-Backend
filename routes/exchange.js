@@ -10,6 +10,7 @@ const router = express.Router();
 
 router.post("/exchange", exchangeItem);
 router.post("/approveItem", approveItem);
+router.post("/approveItem", approveItem);
 router.get("/getExchangeItem", getExchangeItems);
 router.get("/getItemState", getItemState);
 

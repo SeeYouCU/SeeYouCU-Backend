@@ -8,7 +8,9 @@ import {
 
 const router = express.Router();
 
+
 router.post("/joinEvent", joinEvent);
+router.post("/approveJoin", approveJoin);
 router.post("/approveJoin", approveJoin);
 router.get("/getJoinedEvent", getJoinedEvent);
 router.get("/getJoinstate", getJoinState);

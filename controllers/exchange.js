@@ -34,6 +34,19 @@ export const approveItem = (req, res) => {
   });
 };
 
+export const getItemState = (req, res) => {
+  const token = req.cookies.accessToken;
+  jwt.verify(token, "secretkey", (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid!");
+    const q = `SELECT i.state FROM Exchange AS i WHERE i.itemID = ? AND i.accountID = ?`;
+    db.query(q, [req.body.itemID, userInfo.id], (err, data) => {
+      if (err) return res.status(500).json(err);
+      return res.status(200).json(data);
+    });
+  });
+};
+
+
 export const getExchangeItems = (req, res) => {
   const token = req.cookies.accessToken;
   jwt.verify(token, "secretkey", (err, userInfo) => {
