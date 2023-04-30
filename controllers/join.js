@@ -37,7 +37,7 @@ export const getJoinedEvent = (req, res) => {
   const token = req.cookies.accessToken;
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
-    const q = `SELECT i.*, u.id AS userId, name, profilePic FROM joins AS i LEFT JOIN user AS u ON (i.userId = u.id) 
+    const q = `SELECT i.*, u.id AS userId, firstName, LastName FROM joins AS i LEFT JOIN user AS u ON (i.userId = u.id) 
       WHERE i.accountID = ? OR i.userid = ? ORDER BY i.dateJoin DESC`;
     db.query(q, [userInfo.id, userInfo.id], (err, data) => {
       if (err) return res.status(500).json(err);

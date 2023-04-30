@@ -12,7 +12,7 @@ export const registerGoogle = (req, res) => {
     const q =
       "INSERT INTO user (`email`, `firstName`, `lastName`, `goal`, `yearGrad`, `faculty`, `major`, `tags`) VALUE (?)";
     const value = [
-      req.user.email,
+      req.body.email,
       req.body.firstName,
       req.body.lastName,
       req.body.goal,
@@ -84,7 +84,7 @@ export const login = (req, res) => {
 export const loginGoogle = (req, res) => {
   const q = "SELECT * FROM user WHERE email = ?";
 
-  db.query(q, [req.user.email], (err, data) => {
+  db.query(q, [req.body.email], (err, data) => {
     if (err) return res.status(500).json(err);
     if (data.length === 0) return res.status(404).json("User not found!");
 
