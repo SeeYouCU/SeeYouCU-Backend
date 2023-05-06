@@ -6,7 +6,7 @@ export const getEvents = (req, res) => {
   const token = req.cookies.accessToken;
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
-    const q = `SELECT e.*, u.id AS userId, u.firstName AS firstName, u.lastName AS LastName FROM events AS e JOIN user AS u ON (u.id = e.userid ) 
+    const q = `SELECT e.*, u.id AS userId, u.firstName AS firstName, u.lastName AS LastName FROM Events AS e JOIN User AS u ON (u.id = e.userid ) 
     ORDER BY e.createdAt DESC`;
     db.query(q, [userInfo.id, userInfo.id], (err, data) => {
       if (err) return res.status(500).json(err);
@@ -19,7 +19,7 @@ export const getItems = (req, res) => {
   const token = req.cookies.accessToken;
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
-    const q = `SELECT i.*, u.id AS userId, u.firstName AS firstName, u.lastName AS LastName FROM items AS i JOIN user AS u ON (u.id = i.userid ) 
+    const q = `SELECT i.*, u.id AS userId, u.firstName AS firstName, u.lastName AS LastName FROM Items AS i JOIN User AS u ON (u.id = i.userid ) 
     ORDER BY i.createdAt DESC`;
     db.query(q, [userInfo.id, userInfo.id], (err, data) => {
       if (err) return res.status(500).json(err);
@@ -33,7 +33,7 @@ export const addEvent = (req, res) => {
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
     const q =
-      "INSERT INTO events (`desc`, `img`, `createdAt`, `userid`, `name`, `MaxP`, `date`, `location`, `meetUp`, `tag`) VALUE (?)";
+      "INSERT INTO Events (`desc`, `img`, `createdAt`, `userid`, `name`, `MaxP`, `date`, `location`, `meetUp`, `tag`) VALUE (?)";
     const values = [
       req.body.desc,
       req.body.img,
@@ -58,7 +58,7 @@ export const addItem = (req, res) => {
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
     const q =
-      "INSERT INTO items (`desc`, `img`, `userid`, `createdAt`, `return`, `PlaceOfPurchase`, `DateOfPurchase`, `Condition`, `tag`) VALUE (?)";
+      "INSERT INTO Items (`desc`, `img`, `userid`, `createdAt`, `return`, `PlaceOfPurchase`, `DateOfPurchase`, `Condition`, `tag`) VALUE (?)";
     const values = [
       req.body.desc,
       req.body.img,

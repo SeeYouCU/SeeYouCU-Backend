@@ -4,13 +4,13 @@ import jwt from "jsonwebtoken";
 
 export const registerGoogle = (req, res) => {
   //Check if exist
-  const q = "SELECT * FROM user WHERE email = ?";
+  const q = "SELECT * FROM User WHERE email = ?";
   db.query(q, [req.body.email], (err, data) => {
     if (err) return res.status(500).json(err);
     if (data.length) return res.status(409).json("User already exist");
 
     const q =
-      "INSERT INTO user (`email`, `firstName`, `lastName`, `goal`, `yearGrad`, `faculty`, `major`, `tags`) VALUE (?)";
+      "INSERT INTO User (`email`, `firstName`, `lastName`, `Goals`, `yearGrad`, `faculty`, `major`, `tags`) VALUES (?)";
     const value = [
       req.body.email,
       req.body.firstName,
@@ -30,7 +30,7 @@ export const registerGoogle = (req, res) => {
 
 export const register = (req, res) => {
   //Check if exist
-  const q = "SELECT * FROM user WHERE username = ?";
+  const q = "SELECT * FROM User WHERE username = ?";
   db.query(q, [req.body.username], (err, data) => {
     if (err) return res.status(500).json(err);
     if (data.length) return res.status(409).json("User already exist");
@@ -41,7 +41,7 @@ export const register = (req, res) => {
     // const hashedPassword = req.body.password;
 
     const q =
-      "INSERT INTO user (`username`, `email`, `password`, `name`) VALUE (?)";
+      "INSERT INTO User (`username`, `email`, `password`, `name`) VALUE (?)";
     const value = [
       req.body.username,
       req.body.email,
@@ -56,7 +56,7 @@ export const register = (req, res) => {
 };
 
 export const login = (req, res) => {
-  const q = "SELECT * FROM user WHERE username = ?";
+  const q = "SELECT * FROM User WHERE username = ?";
 
   db.query(q, [req.body.username], (err, data) => {
     if (err) return res.status(500).json(err);
@@ -82,7 +82,7 @@ export const login = (req, res) => {
 };
 
 export const loginGoogle = (req, res) => {
-  const q = "SELECT * FROM user WHERE email = ?";
+  const q = "SELECT * FROM User WHERE email = ?";
 
   db.query(q, [req.body.email], (err, data) => {
     if (err) return res.status(500).json(err);
