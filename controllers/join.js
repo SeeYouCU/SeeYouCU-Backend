@@ -7,7 +7,7 @@ export const joinEvent = (req, res) => {
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
     const q =
-      "INSERT INTO Joins (`Eid`, `userID`, `accountID`, `dateJoin`) VALUE (?)";
+      "INSERT INTO Joins (`Eid`, `userID`, `accountID`, `dateJoin`) VALUES (?)";
     const values = [
       req.body.Eid,
       req.body.userID,

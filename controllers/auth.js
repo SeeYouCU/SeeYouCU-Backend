@@ -41,7 +41,7 @@ export const register = (req, res) => {
     // const hashedPassword = req.body.password;
 
     const q =
-      "INSERT INTO User (`username`, `email`, `password`, `name`) VALUE (?)";
+      "INSERT INTO User (`username`, `email`, `password`, `name`) VALUES (?)";
     const value = [
       req.body.username,
       req.body.email,
