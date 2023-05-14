@@ -47,3 +47,33 @@ export const isFriendWith = (req, res) => {
     });
   });
 };
+
+//get all user who this user have not added
+export const isNotAdded = (req, res) => {
+  const token = req.cookies.accessToken;
+  jwt.verify(token, "secretkey", (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid!");
+    const q = `SELECT u.id
+    FROM (SELECT * FROM IsFriendsWith WHERE followerUserID = ?) AS i RIGHT JOIN User AS u ON (i.followedUserId = u.id)
+    WHERE followerUserID is NULL and u.id != ?;`;
+    db.query(q, [userInfo.id, userInfo.id], (err, data) => {
+      if (err) return res.status(500).json(err);
+      return res.status(200).json(data);
+    });
+  });
+};
+
+//get all user who added this user
+export const userAddedMe = (req, res) => {
+  const token = req.cookies.accessToken;
+  jwt.verify(token, "secretkey", (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid!");
+    const q = `SELECT followerUserID AS userAddedYou
+    FROM IsFriendsWith AS i JOIN User AS u ON (i.followedUserId = u.id) 
+    WHERE u.id = ?;`;
+    db.query(q, [userInfo.id, userInfo.id], (err, data) => {
+      if (err) return res.status(500).json(err);
+      return res.status(200).json(data);
+    });
+  });
+};
