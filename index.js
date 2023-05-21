@@ -9,7 +9,7 @@ import friendRoute from "./routes/friend.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import passport from "passport";
-import session from "express-session";
+import session from "cookie-session";
 import oauth from "./oauth.js";
 import oauthRoutes from "./routes/oauth.js";
 
