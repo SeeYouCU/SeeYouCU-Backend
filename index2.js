@@ -1,10 +1,10 @@
 //dont use anymore can delete
 import express from "express";
-import session from "express-session";
+import session from "cookie-session";
 import passport from "passport";
 // import oauth from "./oauth.js";
 // const express = require("express");
-// const session = require("express-session");
+// const session = require("cookie-session");
 // const passport = require("passport");
 import oauth from "./oauth.js";
 
