@@ -64,7 +64,7 @@ export const getExchangeItemsInfo = (req, res) => {
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
     const q = `SELECT i.* FROM Exchange AS i WHERE i.itemID = ? ORDER BY i.dateExchange DESC`;
-    db.query(q, [userInfo.itemID], (err, data) => {
+    db.query(q, [req.body.itemID], (err, data) => {
       if (err) return res.status(500).json(err);
       return res.status(200).json(data);
     });

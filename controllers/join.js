@@ -63,7 +63,7 @@ export const getJoinedEventInfo = (req, res) => {
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
     const q = `SELECT i.* FROM Joins AS i WHERE i.Eid = ? ORDER BY i.dateJoin DESC`;
-    db.query(q, [userInfo.Eid], (err, data) => {
+    db.query(q, [req.body.Eid], (err, data) => {
       if (err) return res.status(500).json(err);
       return res.status(200).json(data);
     });
